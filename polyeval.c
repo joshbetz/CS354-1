@@ -24,7 +24,7 @@ main( int argc, char *argv[] ) {
   } else if( argc > 5 ) {
     printf("Too many coefficients. Bad command line.\n");
     return;
-  } else if(getXValue(/*last argument*/) == -1){
+  } else if( getXValue(/*last argument*/) == -1 ) {
     printf("Bad command line.\n");
     return;
   }
@@ -68,7 +68,7 @@ void printPoly( int coefficients[], int degree ) {
   degree--;/*Do the initial line*/
   printf("%dx^%d" coefficients[pcount],degree);
   pcount++;
-  while(degree > 1){
+  while( degree > 1 ){
     degree--;
     printf(" + %dx^%d" coefficients[pcount],degree);
     pcount++;
@@ -93,7 +93,7 @@ int evaluate( int coefficients[], int degree, int x ) {
   pcount = count
   while (degree != 0){
     degree--;
-    psum += (coefficients[count]^degree)* x;
+    psum += ( coefficients[count]^degree ) * x;
     count++;
   }
   return sum;
