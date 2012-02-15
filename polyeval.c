@@ -1,5 +1,5 @@
 /* Assignment1 - Polyeval
- * by Josh Betz
+ * by Josh Betz and John
  *
  * This program takes in a polynomial as command line arguments
  * and evaluates it at a certain "x" value.
