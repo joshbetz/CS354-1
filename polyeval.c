@@ -101,9 +101,10 @@ void printPoly( int coefficients[], int degree ) {
   /* Print part before first "+" */
   printf("%dx^%d", coefficients[count], degree);
   count++;
+  degree--;
   
   /* Print part after first "+" */
-  while( degree > 1 ){
+  while( degree >= 0 ){
     printf(" + %dx^%d", coefficients[count], degree);
     count++;
     degree--;
@@ -122,8 +123,10 @@ int evaluate( int coefficients[], int degree, int x ) {
   int sum, count;
   sum = 0;
   count = 0;
-  while ( degree != 0 ) {
-    sum += coefficients[count] * ( x^degree );
+  
+  /* TODO: fix pow */
+  while ( degree >= 0 ) {
+    sum += coefficients[count] * pow(x,degree);
     count++;
     degree--;
   }
