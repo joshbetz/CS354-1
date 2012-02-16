@@ -13,14 +13,7 @@ int evaluate( int coefficients[], int degree, int x );
 int power( int x, int y );
 
 #define ARRAYSIZE 5
-
-/*
-EXAMPLE:
-  polyeval  1 -6   80000  x=12
-  Polynomial entered:
-  1x^2 + -6x^1 + 80000x^0
-  f(12) = 80072
-*/
+/* TODO: use ARRAYSIZE somehwere */
 
 main( int argc, char *argv[] ) {
   int x, *px;
@@ -125,7 +118,6 @@ int evaluate( int coefficients[], int degree, int x ) {
   count = 0;
   sum = 0;
   
-  /* TODO: fix pow */
   while ( degree >= 0 ) {
     sum += coefficients[count] * power(x,degree);
     count++;
@@ -134,6 +126,11 @@ int evaluate( int coefficients[], int degree, int x ) {
   return sum;
 }
 
+/* returns value of x^y
+ * Parameters:
+ *  x: base of the function
+ *  y: exponent of the function
+ */
 int power( int x, int y ) {
   int i, sum;
   sum = 1;
