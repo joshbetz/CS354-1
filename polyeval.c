@@ -6,11 +6,11 @@
  */
 
 #include <stdio.h>
-#include <math.h>
 int getXValue( char *argument, int *x );
 int storeCoef( char *cmdline[], int numcoef, int coefficients[] );
 void printPoly( int coefficients[], int degree );
 int evaluate( int coefficients[], int degree, int x );
+int power( int x, int y );
 
 #define ARRAYSIZE 5
 
@@ -127,9 +127,19 @@ int evaluate( int coefficients[], int degree, int x ) {
   
   /* TODO: fix pow */
   while ( degree >= 0 ) {
-    sum += coefficients[count] * pow(x,degree);
+    sum += coefficients[count] * power(x,degree);
     count++;
     degree--;
   }
   return sum;
 }
+
+int power( int x, int y ) {
+  int i, sum;
+  sum = 1;
+  for( i=0; i<y; i++ ) {
+    sum *= x;
+   }
+  return sum;
+}
+
