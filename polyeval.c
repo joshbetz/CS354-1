@@ -6,6 +6,10 @@
  */
 
 #include <stdio.h>
+int getXValue( char *argument, int *x );
+int storeCoef( char *cmdline[], int numcoef, int coefficients[] );
+void printPoly( int coefficients[], int degree );
+int evaluate( int coefficients[], int degree, int x );
 
 #define ARRAYSIZE 5
 
@@ -18,13 +22,19 @@ EXAMPLE:
 */
 
 main( int argc, char *argv[] ) {
-  if( argc < 3 || argc > 5 || getXValue() == -1 ) {
+  int x, *px;
+  px = &x;
+  
+  int xValueIsGood;
+  xValueIsGood = getXValue(argv[argc-1], px);
+  
+  if( argc < 3 || argc > 5 || xValueIsGood == -1 ) {
     if( argc < 3 ) {
       printf("Not enough coefficients.");
     } else if( argc > 5 ) {
       printf("Too many coefficients.");
     }
-    if( getXValue(/*last argument*/) == -1 ) {
+    if( xValueIsGood == -1 ) {
       printf(" Bad command line.\n");
     } else {
       printf("\n");
@@ -33,20 +43,16 @@ main( int argc, char *argv[] ) {
     return;
   }
   
-  char x, *px;
-  px = &x;
-  x = argv[char-1];
-  
   int degree = argc-3;
   
   int coefs[degree + 1];
-  storeCoefs(*argv, degree + 1, coefs);
+  storeCoef(argv, degree + 1, coefs);
   
   printPoly(coefs, degree);
   
   int eval;
-  eval = evaluate();
-  printf("f(%d) = %d", x, eval);
+  eval = evaluate(coefs, degree, x);
+  printf("f(%d) = %d\n", x, eval);
 }
 
 /* getXValue returns -1 if *argument is bad, 0 otherwise
@@ -77,7 +83,7 @@ int getXValue( char *argument, int *x ) {
 int storeCoef( char *cmdline[], int numcoef, int coefficients[] )  {
   int i;
   for( i=0; i<numcoef; i++ ) {
-    coeffcients[i] = atoi(cmdline[i+1]);
+    coefficients[i] = atoi(cmdline[i+1]);
   }
   return numcoef - 1;
 }
@@ -102,6 +108,8 @@ void printPoly( int coefficients[], int degree ) {
     count++;
     degree--;
   }
+  
+  printf("\n");
 }
 
 /* evaluate evaluates the polynomial
