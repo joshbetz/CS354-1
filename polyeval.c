@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <math.h>
 int getXValue( char *argument, int *x );
 int storeCoef( char *cmdline[], int numcoef, int coefficients[] );
 void printPoly( int coefficients[], int degree );
@@ -30,12 +31,12 @@ main( int argc, char *argv[] ) {
   
   if( argc < 3 || argc > 5 || xValueIsGood == -1 ) {
     if( argc < 3 ) {
-      printf("Not enough coefficients.");
+      printf("Not enough coefficients. ");
     } else if( argc > 5 ) {
-      printf("Too many coefficients.");
+      printf("Too many coefficients. ");
     }
     if( xValueIsGood == -1 ) {
-      printf(" Bad command line.\n");
+      printf("Bad command line.\n");
     } else {
       printf("\n");
     }
@@ -120,9 +121,9 @@ void printPoly( int coefficients[], int degree ) {
  *  x:
  */
 int evaluate( int coefficients[], int degree, int x ) {
-  int sum, count;
-  sum = 0;
+  int count, sum;
   count = 0;
+  sum = 0;
   
   /* TODO: fix pow */
   while ( degree >= 0 ) {
