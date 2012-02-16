@@ -18,29 +18,53 @@ EXAMPLE:
 */
 
 main( int argc, char *argv[] ) {
-  if( argc < 3 ) {
-    printf("Not enough coefficients. Bad command line\n");
-    return;
-  } else if( argc > 5 ) {
-    printf("Too many coefficients. Bad command line.\n");
-    return;
-  } else if( getXValue(/*last argument*/) == -1 ) {
-    printf("Bad command line.\n");
+  if( argc < 3 || argc > 5 || getXValue() == -1 ) {
+    if( argc < 3 ) {
+      printf("Not enough coefficients.");
+    } else if( argc > 5 ) {
+      printf("Too many coefficients.");
+    }
+    if( getXValue(/*last argument*/) == -1 ) {
+      printf(" Bad command line.\n");
+    } else {
+      printf("\n");
+    }
+        
     return;
   }
-
-  /* TODO: implement rest of `main()` */
+  
+  char x, *px;
+  px = &x;
+  x = argv[char-1];
+  
+  int degree = argc-3;
+  
+  int coefs[degree + 1];
+  storeCoefs(*argv, degree + 1, coefs);
+  
+  printPoly(coefs, degree);
+  
+  int eval;
+  eval = evaluate();
+  printf("f(%d) = %d", x, eval);
 }
 
 /* getXValue returns -1 if *argument is bad, 0 otherwise
  * Parameters:
- *  argument:
- *  x: 
+ *  argument: pointer to a string
+ *  x: value to evaluate polynomial at
  */
 int getXValue( char *argument, int *x ) {
   /* TODO: check that *argument starts with "x=" */
-  /* TODO: turn everything after "x=" into an integer with `atoi()` */
-
+  if( *argument == 'x' ) { 
+    argument++;
+    if( *argument == '=' ) {
+      argument++;
+      *x = atoi(argument);
+      return 0;
+    }
+  }
+  return -1;
 }
 
 
@@ -51,7 +75,11 @@ int getXValue( char *argument, int *x ) {
  *  coefficients[]: array to put coefs into
  */
 int storeCoef( char *cmdline[], int numcoef, int coefficients[] )  {
-  
+  int i;
+  for( i=0; i<numcoef; i++ ) {
+    coeffcients[i] = atoi(cmdline[i+1]);
+  }
+  return numcoef - 1;
 }
 
 /* printPoly prints the polynomial
@@ -61,21 +89,19 @@ int storeCoef( char *cmdline[], int numcoef, int coefficients[] )  {
  */
 void printPoly( int coefficients[], int degree ) {
   printf("Polynomial entered:\n");
-  int count, *pcount;
+  int count;
   count = 0;
-  pcount = count;
   
-  degree--;/*Do the initial line*/
-  printf("%dx^%d" coefficients[pcount],degree);
-  pcount++;
+  /* Print part before first "+" */
+  printf("%dx^%d", coefficients[count], degree);
+  count++;
+  
+  /* Print part after first "+" */
   while( degree > 1 ){
+    printf(" + %dx^%d", coefficients[count], degree);
+    count++;
     degree--;
-    printf(" + %dx^%d" coefficients[pcount],degree);
-    pcount++;
   }
-  /*int x = getXValue();*/  /* figure out what goes into getXValue()*/
-  /*int *px = x*/
-  printf("f(%d) = %d\n" /*px*/, evaluate(coefficients[], degree, /*px*/); 
 }
 
 /* evaluate evaluates the polynomial
@@ -85,16 +111,13 @@ void printPoly( int coefficients[], int degree ) {
  *  x:
  */
 int evaluate( int coefficients[], int degree, int x ) {
-  int sum, *psum;
-  sum =0;
-  psum = sum;
-  int count, *pcount;
+  int sum, count;
+  sum = 0;
   count = 0;
-  pcount = count
-  while (degree != 0){
-    degree--;
-    psum += ( coefficients[count]^degree ) * x;
+  while ( degree != 0 ) {
+    sum += coefficients[count] * ( x^degree );
     count++;
+    degree--;
   }
   return sum;
 }
