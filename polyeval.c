@@ -20,7 +20,7 @@ main( int argc, char *argv[] ) {
   px = &x;
   
   int xValueIsGood;
-  xValueIsGood = getXValue(argv[argc-1], px);
+  xValueIsGood = getXValue(argv[argc-1], px);/*make sure x= # is there*/
   
   if( argc < 3 || argc > 5 || xValueIsGood == -1 ) {
     if( argc < 3 ) {
@@ -34,19 +34,19 @@ main( int argc, char *argv[] ) {
       printf("\n");
     }
         
-    return;
+    return;/*If it gets here, it is bad*/
   }
   
   int degree = argc-3;
   
-  int coefs[degree + 1];
+  int coefs[degree + 1];/*Storing Coefs*/
   storeCoef(argv, degree + 1, coefs);
   
   printPoly(coefs, degree);
   
   int eval;
   eval = evaluate(coefs, degree, x);
-  printf("f(%d) = %d\n", x, eval);
+  printf("f(%d) = %d\n", x, eval); /*final print part*/
 }
 
 /* getXValue returns -1 if *argument is bad, 0 otherwise
@@ -55,7 +55,7 @@ main( int argc, char *argv[] ) {
  *  x: value to evaluate polynomial at
  */
 int getXValue( char *argument, int *x ) {
-  /* TODO: check that *argument starts with "x=" */
+  /* check that *argument starts with "x=" */
   if( *argument == 'x' ) { 
     argument++;
     if( *argument == '=' ) {
@@ -84,8 +84,8 @@ int storeCoef( char *cmdline[], int numcoef, int coefficients[] )  {
 
 /* printPoly prints the polynomial
  * Parameters:
- *  coefficients[]: 
- *  degree: 
+ *  coefficients[]: what to put in front of x 
+ *  degree: used to know what to raise x to
  */
 void printPoly( int coefficients[], int degree ) {
   printf("Polynomial entered:\n");
@@ -103,15 +103,14 @@ void printPoly( int coefficients[], int degree ) {
     count++;
     degree--;
   }
-  
   printf("\n");
 }
 
 /* evaluate evaluates the polynomial
  * Parameters:
- *  coefficients[]: 
- *  degree: 
- *  x:
+ *  coefficients[]: the nuber that gets multiplied to the x^power
+ *  degree: power of the functions
+ *  x: base of the function
  */
 int evaluate( int coefficients[], int degree, int x ) {
   int count, sum;
