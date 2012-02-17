@@ -13,7 +13,6 @@ int evaluate( int coefficients[], int degree, int x );
 int power( int x, int y );
 
 #define ARRAYSIZE 5
-/* TODO: use ARRAYSIZE somehwere */
 
 main( int argc, char *argv[] ) {
   int x, *px;
@@ -22,10 +21,10 @@ main( int argc, char *argv[] ) {
   int xValueIsGood;
   xValueIsGood = getXValue(argv[argc-1], px);/*make sure x= # is there*/
   
-  if( argc < 3 || argc > 5 || xValueIsGood == -1 ) {
+  if( argc < 3 || argc > ARRAYSIZE || xValueIsGood == -1 ) {
     if( argc < 3 ) {
       printf("Not enough coefficients. ");
-    } else if( argc > 5 ) {
+    } else if( argc > ARRAYSIZE ) {
       printf("Too many coefficients. ");
     }
     if( xValueIsGood == -1 ) {
